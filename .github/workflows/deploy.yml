@@ -1,0 +1,3 @@
+echo "── 5. Reiniciando Gunicorn y Nginx ──"
+            systemctl restart gunicorn-diaz-moviles
+            systemctl restart nginx
