@@ -71,15 +71,13 @@ jobs:
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to Droplet
-        env:
-          VPS_HOST:    ${{ secrets.VPS_HOST }}
-          VPS_USER:    ${{ secrets.VPS_USERNAME }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        # Inyectamos los secrets de GitHub directamente en el texto del comando
         run: |
-          ssh $VPS_USER@$VPS_HOST << 'ENDSSH'
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
             set -e
             echo "── 1. Entrando al proyecto y actualizando código ──"
-            cd $DEPLOY_PATH
+            # Usamos el secret en lugar de la variable local
+            cd ${{ secrets.DEPLOY_PATH }}
             git pull origin main
 
             echo "── 2. Instalando dependencias nuevas ──"
