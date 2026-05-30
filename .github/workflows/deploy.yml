@@ -92,8 +92,7 @@ jobs:
             /root/.local/bin/uv run python manage.py collectstatic --noinput --clear
 
             echo "── 5. Reiniciando Gunicorn y Nginx ──"
-            # Asegúrate de que el nombre del servicio coincida con el que creaste
-            systemctl restart gunicorn-shopapi
+            systemctl restart gunicorn-diaz-moviles
             systemctl restart nginx
 
             echo "── 6. Despliegue completado con éxito ──"
