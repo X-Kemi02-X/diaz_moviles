@@ -1,10 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView
 from tienda.views.health import health_check
+from tienda.views.auth_views import CustomTokenObtainPairView
 from tienda.views.marca_views import MarcaViewSet
 from tienda.views.categoria_views import CategoriaViewSet
 from tienda.views.producto_views import ProductoViewSet
@@ -24,7 +22,7 @@ router.register(r'detalles-venta', DetalleVentaViewSet)
 
 urlpatterns = [
     path('health/', health_check),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include(router.urls)),
 ]
