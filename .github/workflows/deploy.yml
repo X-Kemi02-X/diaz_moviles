@@ -78,7 +78,8 @@ jobs:
             echo "── 1. Entrando al proyecto y actualizando código ──"
             # Usamos el secret en lugar de la variable local
             cd ${{ secrets.DEPLOY_PATH }}
-            git pull origin main
+            git fetch --all
+            git reset --hard origin/main
 
             echo "── 2. Instalando dependencias nuevas ──"
             /root/.local/bin/uv sync
