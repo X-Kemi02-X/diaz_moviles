@@ -50,6 +50,7 @@ jobs:
           DB_HOST:       localhost
           DB_PORT:       5432
           CORS_ALLOW_ALL_ORIGINS: True
+          CSRF_TRUSTED_ORIGINS: https://diaz-moviles.uaeftt-ute.site
         # Si aún no tienes tests creados, este comando pasará automáticamente o indicará que no hay tests.
         run: uv run python manage.py test --verbosity=2
 
@@ -81,18 +82,21 @@ jobs:
             git fetch --all
             git reset --hard origin/main
 
-            echo "── 2. Instalando dependencias nuevas ──"
+            echo "── 2. Copiando .env desde secretos de GitHub ──"
+            echo "${{ secrets.ENV_FILE }}" > .env
+
+            echo "── 3. Instalando dependencias nuevas ──"
             /root/.local/bin/uv sync
 
-            echo "── 3. Aplicando migraciones de Base de Datos ──"
+            echo "── 4. Aplicando migraciones de Base de Datos ──"
             /root/.local/bin/uv run python manage.py migrate --noinput
 
-            echo "── 4. Recolectando archivos estáticos ──"
+            echo "── 5. Recolectando archivos estáticos ──"
             /root/.local/bin/uv run python manage.py collectstatic --noinput --clear
 
-            echo "── 5. Reiniciando Gunicorn y Nginx ──"
+            echo "── 6. Reiniciando Gunicorn y Nginx ──"
             systemctl restart gunicorn-diaz-moviles
             systemctl restart nginx
 
-            echo "── 6. Despliegue completado con éxito ──"
+            echo "── 7. Despliegue completado con éxito ──"
           ENDSSH
