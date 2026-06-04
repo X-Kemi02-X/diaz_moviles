@@ -179,17 +179,11 @@ python manage.py runserver
 
 ## Uso con Postman
 
-### Local
 1. Importar `Proyecto-MovilesD.postman_collection.json`
-2. Crear environment con variable `base_url = http://127.0.0.1:8000`
-3. Ejecutar **Login** → el token se guarda automáticamente
-4. Probar cualquier endpoint
-
-### Producción
-1. Importar `Proyecto-MovilesD-Produccion.postman_collection.json`
-2. La variable `base_url` ya apunta a `https://diaz-moviles.uaeftt-ute.site`
-3. Ejecutar **Login** → el token se guarda automáticamente
-4. Probar cualquier endpoint
+2. La variable `base_url` apunta por defecto a `https://diaz-moviles.uaeftt-ute.site`
+3. Para usar localmente, cambiar `base_url` a `http://127.0.0.1:8000`
+4. Ejecutar **Login** → el token se guarda automáticamente
+5. Probar cualquier endpoint
 
 ## Ejemplos con curl
 
