@@ -1,0 +1,221 @@
+{
+	"info": {
+		"name": "Proyecto-MovilesD-Produccion",
+		"description": "Colección de endpoints para Diaz Moviles - Producción",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://diaz-moviles.uaeftt-ute.site",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", jsonData.access);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [{"key": "Content-Type", "value": "application/json"}],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"admin\", \"password\": \"admin123\"}"
+				},
+				"url": {
+					"raw": "https://diaz-moviles.uaeftt-ute.site/api/token/",
+					"host": ["https://diaz-moviles.uaeftt-ute.site"],
+					"path": ["api", "token", ""]
+				}
+			}
+		},
+		{
+			"name": "Marcas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/marcas/", "host": ["{{base_url}}"], "path": ["api", "marcas", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Google\", \"pais_origen\": \"Estados Unidos\"}"},
+						"url": {"raw": "{{base_url}}/api/marcas/", "host": ["{{base_url}}"], "path": ["api", "marcas", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/marcas/1/", "host": ["{{base_url}}"], "path": ["api", "marcas", "1", ""]}}
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Google LLC\", \"pais_origen\": \"Estados Unidos\", \"activo\": true}"},
+						"url": {"raw": "{{base_url}}/api/marcas/1/", "host": ["{{base_url}}"], "path": ["api", "marcas", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar",
+					"request": {"method": "DELETE", "url": {"raw": "{{base_url}}/api/marcas/1/", "host": ["{{base_url}}"], "path": ["api", "marcas", "1", ""]}}
+				}
+			]
+		},
+		{
+			"name": "Categorías",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/categorias/", "host": ["{{base_url}}"], "path": ["api", "categorias", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Tablet\", \"descripcion\": \"Dispositivos plegables\", \"activo\": true}"},
+						"url": {"raw": "{{base_url}}/api/categorias/", "host": ["{{base_url}}"], "path": ["api", "categorias", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/categorias/1/", "host": ["{{base_url}}"], "path": ["api", "categorias", "1", ""]}}
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Tablet\", \"descripcion\": \"Actualizado\", \"activo\": true}"},
+						"url": {"raw": "{{base_url}}/api/categorias/1/", "host": ["{{base_url}}"], "path": ["api", "categorias", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar",
+					"request": {"method": "DELETE", "url": {"raw": "{{base_url}}/api/categorias/1/", "host": ["{{base_url}}"], "path": ["api", "categorias", "1", ""]}}
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/productos/", "host": ["{{base_url}}"], "path": ["api", "productos", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Pixel 9\", \"marca\": 1, \"categoria\": 1, \"modelo\": \"PK9\", \"precio\": \"699.99\", \"stock\": 20, \"descripcion\": \"Google Pixel 9\", \"especificaciones\": \"8GB RAM, 128GB\", \"activo\": true}"},
+						"url": {"raw": "{{base_url}}/api/productos/", "host": ["{{base_url}}"], "path": ["api", "productos", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}}
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Galaxy S24 Ultra\", \"marca\": 1, \"categoria\": 1, \"modelo\": \"S24U\", \"precio\": \"1199.99\", \"stock\": 10, \"activo\": true}"},
+						"url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar",
+					"request": {"method": "DELETE", "url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}}
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/clientes/", "host": ["{{base_url}}"], "path": ["api", "clientes", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Ana\", \"apellido\": \"Martínez\", \"cedula\": \"1723456789\", \"email\": \"ana@email.com\", \"telefono\": \"0995551234\"}"},
+						"url": {"raw": "{{base_url}}/api/clientes/", "host": ["{{base_url}}"], "path": ["api", "clientes", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/clientes/1/", "host": ["{{base_url}}"], "path": ["api", "clientes", "1", ""]}}
+				}
+			]
+		},
+		{
+			"name": "Proveedores",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/proveedores/", "host": ["{{base_url}}"], "path": ["api", "proveedores", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"nombre\": \"Distribuidora XYZ\", \"contacto\": \"Carlos López\", \"telefono\": \"0987654321\"}"},
+						"url": {"raw": "{{base_url}}/api/proveedores/", "host": ["{{base_url}}"], "path": ["api", "proveedores", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/ventas/", "host": ["{{base_url}}"], "path": ["api", "ventas", ""]}}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {"mode": "raw", "raw": "{\"cliente\": 1, \"estado\": \"completada\", \"metodo_pago\": \"tarjeta\", \"detalles\": [{\"producto\": 1, \"cantidad\": 2, \"precio_unitario\": \"899.99\"}]}"},
+						"url": {"raw": "{{base_url}}/api/ventas/", "host": ["{{base_url}}"], "path": ["api", "ventas", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {"method": "GET", "url": {"raw": "{{base_url}}/api/ventas/1/", "host": ["{{base_url}}"], "path": ["api", "ventas", "1", ""]}}
+				}
+			]
+		}
+	]
+}

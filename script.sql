@@ -1,4 +1,6 @@
-CREATE USER diaz_moviles_user WITH PASSWORD 'diaz_moviles_pass';
-CREATE DATABASE diaz_moviles_db OWNER diaz_moviles_user;
-GRANT ALL PRIVILEGES ON DATABASE diaz_moviles_db TO diaz_moviles_user;
-\q
+CREATE DATABASE diaz_moviles;
+CREATE USER diaz_user WITH PASSWORD 'diaz_pass';
+ALTER ROLE diaz_user SET client_encoding TO 'utf8';
+ALTER ROLE diaz_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE diaz_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE diaz_moviles TO diaz_user;

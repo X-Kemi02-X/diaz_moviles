@@ -5,7 +5,7 @@ Backend Django REST para tienda de equipos móviles.
 ## 🌐 URL de Producción
 
 ```
-http://diaz-moviles.uaeftt-ute.site
+https://diaz-moviles.uaeftt-ute.site
 ```
 
 ## 🔐 Credenciales de Prueba
@@ -187,7 +187,7 @@ python manage.py runserver
 
 ### Producción
 1. Importar `Proyecto-MovilesD-Produccion.postman_collection.json`
-2. La variable `base_url` ya apunta a `http://diaz-moviles.uaeftt-ute.site`
+2. La variable `base_url` ya apunta a `https://diaz-moviles.uaeftt-ute.site`
 3. Ejecutar **Login** → el token se guarda automáticamente
 4. Probar cualquier endpoint
 
@@ -214,16 +214,16 @@ curl -X POST http://127.0.0.1:8000/api/marcas/ \
 ### Producción
 ```bash
 # Login
-curl -X POST http://diaz-moviles.uaeftt-ute.site/api/token/ \
+curl -X POST https://diaz-moviles.uaeftt-ute.site/api/token/ \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}'
 
 # Listar productos
 curl -H "Authorization: Bearer <token>" \
-  http://diaz-moviles.uaeftt-ute.site/api/productos/
+  https://diaz-moviles.uaeftt-ute.site/api/productos/
 
 # Crear cliente
-curl -X POST http://diaz-moviles.uaeftt-ute.site/api/clientes/ \
+curl -X POST https://diaz-moviles.uaeftt-ute.site/api/clientes/ \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{"nombre":"Ana","apellido":"Martínez","cedula":"1723456789","email":"ana@email.com","telefono":"0995551234"}'
@@ -233,7 +233,7 @@ curl -X POST http://diaz-moviles.uaeftt-ute.site/api/clientes/ \
 
 | Recurso | URL |
 |---------|-----|
-| API Producción | `http://diaz-moviles.uaeftt-ute.site` |
-| Admin Django | `http://diaz-moviles.uaeftt-ute.site/admin/` |
+| API Producción | `https://diaz-moviles.uaeftt-ute.site` |
+| Admin Django | `https://diaz-moviles.uaeftt-ute.site/admin/` |
 | Servidor | DigitalOcean Droplet (Ubuntu 24.04) |
 | CI/CD | GitHub Actions → despliegue automático al hacer push a `main` |
