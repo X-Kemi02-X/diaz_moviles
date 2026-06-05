@@ -9,7 +9,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -18,6 +18,11 @@
 		{
 			"key": "base_url",
 			"value": "https://diaz-moviles.uaeftt-ute.site",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
 			"type": "string"
 		}
 	],
