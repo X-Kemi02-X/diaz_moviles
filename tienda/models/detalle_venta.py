@@ -16,3 +16,8 @@ class DetalleVenta(models.Model):
 
     def __str__(self):
         return f"{self.cantidad}x {self.producto} (Venta #{self.venta.id})"
+
+    def save(self, *args, **kwargs):
+        self.subtotal = self.cantidad * self.precio_unitario
+        super().save(*args, **kwargs)
+        self.venta.recalcular_total()

@@ -528,7 +528,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"cliente\": 1,\n  \"estado\": \"completada\",\n  \"metodo_pago\": \"tarjeta\",\n  \"observacion\": \"\",\n  \"detalles\": [\n    {\n      \"producto\": 1,\n      \"cantidad\": 2,\n      \"precio_unitario\": \"899.99\"\n    }\n  ]\n}"
+							"raw": "{\n  \"cliente\": 1,\n  \"metodo_pago\": \"tarjeta\",\n  \"observacion\": \"Venta de prueba\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/ventas/",
@@ -604,6 +604,27 @@
 							"raw": "{{base_url}}/api/detalles-venta/1/",
 							"host": ["{{base_url}}"],
 							"path": ["api", "detalles-venta", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Crear Detalle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"venta\": 1,\n  \"producto\": 1,\n  \"cantidad\": 2,\n  \"precio_unitario\": \"899.99\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/detalles-venta/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "detalles-venta", ""]
 						}
 					}
 				},

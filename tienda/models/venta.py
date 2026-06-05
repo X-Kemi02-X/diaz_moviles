@@ -31,5 +31,10 @@ class Venta(models.Model):
         verbose_name_plural = "Ventas"
         ordering = ['-fecha']
 
+    def recalcular_total(self):
+        total = self.detalles.aggregate(total=models.Sum('subtotal'))['total'] or 0
+        self.total = total
+        self.save(update_fields=['total'])
+
     def __str__(self):
         return f"Venta #{self.id} - {self.cliente} - ${self.total}"
