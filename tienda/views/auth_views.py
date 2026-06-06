@@ -56,7 +56,8 @@ class RegisterSerializer(serializers.Serializer):
                 password=validated_data['password'],
                 email=validated_data['email']
             )
-            Cliente.objects.create(
+            cliente = Cliente.objects.create(
+                usuario=user,
                 nombre=validated_data['nombre'],
                 apellido=validated_data['apellido'],
                 cedula=validated_data['cedula'],
