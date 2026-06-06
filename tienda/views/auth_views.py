@@ -76,6 +76,9 @@ class RegisterSerializer(serializers.Serializer):
 def register(request):
     serializer = RegisterSerializer(data=request.data)
     if serializer.is_valid():
-        result = serializer.save()
-        return Response(result, status=status.HTTP_201_CREATED)
+        try:
+            result = serializer.save()
+            return Response(result, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
