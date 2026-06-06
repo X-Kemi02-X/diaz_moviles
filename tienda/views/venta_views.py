@@ -6,7 +6,7 @@ from tienda.serializers.venta import VentaSerializer
 class VentaViewSet(viewsets.ModelViewSet):
     queryset = Venta.objects.select_related('cliente', 'usuario').prefetch_related('detalles__producto').all()
     serializer_class = VentaSerializer
-    filterset_fields = ['estado', 'metodo_pago', 'cliente']
+    filterset_fields = ['estado', 'metodo_pago', 'cliente', 'usuario']
     search_fields = ['observacion']
     ordering_fields = ['fecha', 'total']
 
