@@ -3,7 +3,7 @@ from django.db import transaction
 from rest_framework import viewsets
 from tienda.models.cliente import Cliente
 from tienda.serializers.cliente import ClienteSerializer
-from tienda.permissions import AdminOrReadOnly
+from tienda.permissions import AdminOrAuthenticatedWrite
 
 User = get_user_model()
 
@@ -11,7 +11,7 @@ User = get_user_model()
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-    permission_classes = [AdminOrReadOnly]
+    permission_classes = [AdminOrAuthenticatedWrite]
     filterset_fields = ['activo']
     search_fields = ['nombre', 'apellido', 'cedula', 'email', 'telefono']
     ordering_fields = ['nombre', 'apellido', 'fecha_registro']

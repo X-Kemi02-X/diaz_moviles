@@ -80,8 +80,8 @@ python manage.py runserver
 |--------|------|-------------|
 | GET/POST | `/api/ventas/` | Listar / Crear venta |
 | GET/PUT/PATCH/DELETE | `/api/ventas/{id}/` | Detalle / Actualizar / Eliminar |
-| GET/POST | `/api/detalles-venta/` | Listar detalles |
-| GET | `/api/detalles-venta/{id}/` | Detalle |
+| GET/POST | `/api/detalles-venta/` | Listar / Crear detalle |
+| GET/PUT/DELETE | `/api/detalles-venta/{id}/` | Detalle / Actualizar / Eliminar |
 
 ### Filtros y búsqueda
 ```
