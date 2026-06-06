@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db import IntegrityError, transaction
 from rest_framework import serializers, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -32,21 +33,42 @@ class RegisterSerializer(serializers.Serializer):
     telefono = serializers.CharField()
     direccion = serializers.CharField()
 
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Este usuario ya está registrado")
+        return value
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Este correo ya está en uso")
+        if Cliente.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Este correo ya está en uso")
+        return value
+
+    def validate_cedula(self, value):
+        if Cliente.objects.filter(cedula=value).exists():
+            raise serializers.ValidationError("Esta cédula ya está registrada")
+        return value
+
+    @transaction.atomic
     def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-            email=validated_data['email']
-        )
-        cliente = Cliente.objects.create(
-            nombre=validated_data['nombre'],
-            apellido=validated_data['apellido'],
-            cedula=validated_data['cedula'],
-            email=validated_data['email'],
-            telefono=validated_data['telefono'],
-            direccion=validated_data['direccion']
-        )
-        return {'user_id': user.id, 'cliente_id': cliente.id, 'username': user.username, 'email': user.email}
+        try:
+            user = User.objects.create_user(
+                username=validated_data['username'],
+                password=validated_data['password'],
+                email=validated_data['email']
+            )
+            Cliente.objects.create(
+                nombre=validated_data['nombre'],
+                apellido=validated_data['apellido'],
+                cedula=validated_data['cedula'],
+                email=validated_data['email'],
+                telefono=validated_data['telefono'],
+                direccion=validated_data['direccion']
+            )
+            return {'user_id': user.id, 'username': user.username, 'email': user.email}
+        except IntegrityError:
+            raise serializers.ValidationError("Error al crear la cuenta. Intenta de nuevo.")
 
 
 @api_view(['POST'])
