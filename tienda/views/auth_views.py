@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import IntegrityError, transaction
 from rest_framework import serializers, status
 from rest_framework.decorators import api_view, permission_classes
@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from tienda.models.cliente import Cliente
+
+User = get_user_model()
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -31,7 +33,7 @@ class RegisterSerializer(serializers.Serializer):
     apellido = serializers.CharField()
     cedula = serializers.CharField()
     telefono = serializers.CharField()
-    direccion = serializers.CharField()
+    direccion = serializers.CharField(required=False, allow_blank=True)
 
     def validate_username(self, value):
         if User.objects.filter(username=value).exists():
@@ -75,11 +77,8 @@ class RegisterSerializer(serializers.Serializer):
 def register(request):
     serializer = RegisterSerializer(data=request.data)
     if serializer.is_valid():
-        try:
-            result = serializer.save()
-            return Response(result, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        result = serializer.save()
+        return Response(result, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

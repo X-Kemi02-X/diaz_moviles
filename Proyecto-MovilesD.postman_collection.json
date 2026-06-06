@@ -606,38 +606,6 @@
 							"path": ["api", "detalles-venta", "1", ""]
 						}
 					}
-				},
-				{
-					"name": "Crear Detalle",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"venta\": 1,\n  \"producto\": 1,\n  \"cantidad\": 2,\n  \"precio_unitario\": \"899.99\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/detalles-venta/",
-							"host": ["{{base_url}}"],
-							"path": ["api", "detalles-venta", ""]
-						}
-					}
-				},
-				{
-					"name": "Eliminar Detalle",
-					"request": {
-						"method": "DELETE",
-						"url": {
-							"raw": "{{base_url}}/api/detalles-venta/1/",
-							"host": ["{{base_url}}"],
-							"path": ["api", "detalles-venta", "1", ""]
-						}
-					}
 				}
 			]
 		}

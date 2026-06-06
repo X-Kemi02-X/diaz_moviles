@@ -21,3 +21,8 @@ class DetalleVenta(models.Model):
         self.subtotal = self.cantidad * self.precio_unitario
         super().save(*args, **kwargs)
         self.venta.recalcular_total()
+
+    def delete(self, *args, **kwargs):
+        venta = self.venta
+        super().delete(*args, **kwargs)
+        venta.recalcular_total()

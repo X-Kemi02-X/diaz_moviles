@@ -56,7 +56,6 @@ python manage.py runserver
 | Método | Ruta | Descripción |
 |--------|------|-------------|
 | POST | `/api/token/` | Login (obtener JWT) |
-| POST | `/api/token/refresh/` | Refrescar token |
 
 ### Catálogo (admin: CRUD completo / usuario: solo lectura)
 | Método | Ruta | Descripción |
@@ -81,8 +80,8 @@ python manage.py runserver
 |--------|------|-------------|
 | GET/POST | `/api/ventas/` | Listar / Crear venta |
 | GET/PUT/PATCH/DELETE | `/api/ventas/{id}/` | Detalle / Actualizar / Eliminar |
-| GET/POST | `/api/detalles-venta/` | Listar / Crear detalle |
-| GET/DELETE | `/api/detalles-venta/{id}/` | Detalle / Eliminar |
+| GET/POST | `/api/detalles-venta/` | Listar detalles |
+| GET | `/api/detalles-venta/{id}/` | Detalle |
 
 ### Filtros y búsqueda
 ```
