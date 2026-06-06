@@ -39,8 +39,6 @@ class RegisterSerializer(serializers.Serializer):
         return value
 
     def validate_email(self, value):
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("Este correo ya está en uso")
         if Cliente.objects.filter(email=value).exists():
             raise serializers.ValidationError("Este correo ya está en uso")
         return value
