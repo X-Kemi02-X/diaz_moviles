@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 from tienda.views.health import health_check
-from tienda.views.auth_views import CustomTokenObtainPairView, register
+from tienda.views.auth_views import CustomTokenObtainPairView, change_password, register
 from tienda.views.marca_views import MarcaViewSet
 from tienda.views.categoria_views import CategoriaViewSet
 from tienda.views.producto_views import ProductoViewSet
@@ -25,5 +25,6 @@ urlpatterns = [
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', register, name='register'),
+    path('change-password/', change_password, name='change_password'),
     path('', include(router.urls)),
 ]

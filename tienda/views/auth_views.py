@@ -81,3 +81,23 @@ def register(request):
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def change_password(request):
+    user = request.user
+    old_password = request.data.get('old_password')
+    new_password = request.data.get('new_password')
+
+    if not old_password or not new_password:
+        return Response({"detail": "Ambos campos son requeridos"}, status=status.HTTP_400_BAD_REQUEST)
+    if len(new_password) < 6:
+        return Response({"detail": "La contraseña debe tener al menos 6 caracteres"}, status=status.HTTP_400_BAD_REQUEST)
+    if not user.check_password(old_password):
+        return Response({"detail": "La contraseña actual no es correcta"}, status=status.HTTP_400_BAD_REQUEST)
+    if old_password == new_password:
+        return Response({"detail": "La nueva contraseña debe ser diferente a la actual"}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.set_password(new_password)
+    user.save()
+    return Response({"detail": "Contraseña actualizada correctamente"})
