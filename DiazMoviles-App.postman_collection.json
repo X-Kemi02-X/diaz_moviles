@@ -1,0 +1,386 @@
+{
+	"info": {
+		"name": "DiazMoviles App",
+		"description": "Colección de endpoints consumidos por la app Android Diaz Moviles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+	},
+	"variable": [
+		{"key": "base_url", "value": "https://diaz-moviles.uaeftt-ute.site", "type": "string"},
+		{"key": "token", "value": "", "type": "string"}
+	],
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [{
+						"listen": "test",
+						"script": {
+							"exec": [
+								"var jsonData = pm.response.json();",
+								"pm.collectionVariables.set(\"token\", jsonData.access);"
+							],
+							"type": "text/javascript"
+						}
+					}],
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/token/", "host": ["{{base_url}}"], "path": ["api", "token", ""]}
+					}
+				},
+				{
+					"name": "Registrar",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"nuevo\",\n  \"password\": \"cliente123\",\n  \"email\": \"nuevo@email.com\",\n  \"nombre\": \"Nuevo\",\n  \"apellido\": \"Cliente\",\n  \"cedula\": \"0999999999\",\n  \"telefono\": \"0990000000\",\n  \"direccion\": \"\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/register/", "host": ["{{base_url}}"], "path": ["api", "register", ""]}
+					}
+				},
+				{
+					"name": "Cambiar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"old_password\": \"admin123\",\n  \"new_password\": \"nueva123\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/change-password/", "host": ["{{base_url}}"], "path": ["api", "change-password", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/productos/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "productos", ""]
+						}
+					}
+				},
+				{
+					"name": "Listar con filtros",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/productos/?search=galaxy&page=1&page_size=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "productos", ""],
+							"query": [
+								{"key": "search", "value": "galaxy"},
+								{"key": "page", "value": "1"},
+								{"key": "page_size", "value": "10"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}
+					}
+				},
+				{
+					"name": "Crear (admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Pixel 9\",\n  \"marca\": 1,\n  \"categoria\": 1,\n  \"modelo\": \"PK9\",\n  \"precio\": \"699.99\",\n  \"stock\": 20,\n  \"descripcion\": \"Google Pixel 9\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/productos/", "host": ["{{base_url}}"], "path": ["api", "productos", ""]}
+					}
+				},
+				{
+					"name": "Actualizar (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Galaxy S24 Ultra\",\n  \"marca\": 1,\n  \"categoria\": 1,\n  \"modelo\": \"S24U\",\n  \"precio\": \"1199.99\",\n  \"stock\": 10,\n  \"descripcion\": \"Actualizado\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar (admin)",
+					"request": {
+						"method": "DELETE",
+						"url": {"raw": "{{base_url}}/api/productos/1/", "host": ["{{base_url}}"], "path": ["api", "productos", "1", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Marcas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/marcas/", "host": ["{{base_url}}"], "path": ["api", "marcas", ""]}
+					}
+				},
+				{
+					"name": "Crear (admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Google\",\n  \"descripcion\": \"Tecnología\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/marcas/", "host": ["{{base_url}}"], "path": ["api", "marcas", ""]}
+					}
+				},
+				{
+					"name": "Actualizar (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Google LLC\",\n  \"descripcion\": \"Actualizado\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/marcas/1/", "host": ["{{base_url}}"], "path": ["api", "marcas", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar (admin)",
+					"request": {
+						"method": "DELETE",
+						"url": {"raw": "{{base_url}}/api/marcas/1/", "host": ["{{base_url}}"], "path": ["api", "marcas", "1", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categorías",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/categorias/", "host": ["{{base_url}}"], "path": ["api", "categorias", ""]}
+					}
+				},
+				{
+					"name": "Crear (admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Tablet\",\n  \"descripcion\": \"Tablets\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/categorias/", "host": ["{{base_url}}"], "path": ["api", "categorias", ""]}
+					}
+				},
+				{
+					"name": "Actualizar (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Tablet Pro\",\n  \"descripcion\": \"Actualizado\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/categorias/1/", "host": ["{{base_url}}"], "path": ["api", "categorias", "1", ""]}
+					}
+				},
+				{
+					"name": "Eliminar (admin)",
+					"request": {
+						"method": "DELETE",
+						"url": {"raw": "{{base_url}}/api/categorias/1/", "host": ["{{base_url}}"], "path": ["api", "categorias", "1", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/clientes/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "clientes", ""]
+						}
+					}
+				},
+				{
+					"name": "Buscar por email",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/clientes/?search=juan@email.com",
+							"host": ["{{base_url}}"],
+							"path": ["api", "clientes", ""],
+							"query": [{"key": "search", "value": "juan@email.com"}]
+						}
+					}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Ana\",\n  \"apellido\": \"Martínez\",\n  \"cedula\": \"1723456789\",\n  \"email\": \"ana@email.com\",\n  \"telefono\": \"0995551234\",\n  \"direccion\": \"Av. Principal 123\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/clientes/", "host": ["{{base_url}}"], "path": ["api", "clientes", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/clientes/1/", "host": ["{{base_url}}"], "path": ["api", "clientes", "1", ""]}
+					}
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Ana María\",\n  \"apellido\": \"Martínez López\",\n  \"cedula\": \"1723456789\",\n  \"email\": \"ana.maria@email.com\",\n  \"telefono\": \"0995555678\",\n  \"direccion\": \"Av. Actualizada 456\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/clientes/1/", "host": ["{{base_url}}"], "path": ["api", "clientes", "1", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/ventas/", "host": ["{{base_url}}"], "path": ["api", "ventas", ""]}
+					}
+				},
+				{
+					"name": "Crear con detalles",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cliente\": 1,\n  \"metodo_pago\": \"tarjeta\",\n  \"observacion\": \"Venta desde app\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/ventas/", "host": ["{{base_url}}"], "path": ["api", "ventas", ""]}
+					}
+				},
+				{
+					"name": "Detalle",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/ventas/1/", "host": ["{{base_url}}"], "path": ["api", "ventas", "1", ""]}
+					}
+				},
+				{
+					"name": "Actualizar estado (admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"estado\": \"completada\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/ventas/1/", "host": ["{{base_url}}"], "path": ["api", "ventas", "1", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Detalles Venta",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/detalles-venta/", "host": ["{{base_url}}"], "path": ["api", "detalles-venta", ""]}
+					}
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"venta\": 1,\n  \"producto\": 1,\n  \"cantidad\": 1,\n  \"precio_unitario\": \"899.99\"\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/detalles-venta/", "host": ["{{base_url}}"], "path": ["api", "detalles-venta", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Proveedores",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/proveedores/", "host": ["{{base_url}}"], "path": ["api", "proveedores", ""]}
+					}
+				},
+				{
+					"name": "Crear (admin)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Distribuidora XYZ\",\n  \"contacto\": \"Carlos\",\n  \"telefono\": \"0987654321\",\n  \"email\": \"carlos@xyz.com\",\n  \"direccion\": \"Av. Industrial 789\",\n  \"activo\": true\n}"
+						},
+						"url": {"raw": "{{base_url}}/api/proveedores/", "host": ["{{base_url}}"], "path": ["api", "proveedores", ""]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {"raw": "{{base_url}}/api/health/", "host": ["{{base_url}}"], "path": ["api", "health", ""]}
+					}
+				}
+			]
+		}
+	]
+}
